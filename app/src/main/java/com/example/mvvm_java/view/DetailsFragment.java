@@ -15,11 +15,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mvvm_java.R;
 import com.example.mvvm_java.model.DogBreed;
+import com.example.mvvm_java.util.ImageUtils;
 import com.example.mvvm_java.viewmodel.DetailViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 
 
 public class DetailsFragment extends Fragment {
@@ -38,42 +38,41 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.dog_lifespan)
     TextView lifespan;
 
-    public DetailsFragment() { }
+    public DetailsFragment() {
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(getArguments()!=null)
-        {
+        if (getArguments() != null) {
             dogUuid = DetailsFragmentArgs.fromBundle(getArguments()).getDogUuid();
         }
 
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
-        detailViewModel.getBreedInfo();
+        detailViewModel.fetch(dogUuid);
 
         observeInformation();
     }
 
-    private void observeInformation()
-    {
-     detailViewModel.dogBreed.observe(this, dogBreed -> {
-         if(dogBreed!=null && dogBreed instanceof DogBreed)
-         {
-          details.setText(dogBreed.dogBreed);
-          purpose.setText(dogBreed.breedGroup);
-          lifespan.setText(dogBreed.lifeSpan);
-          temperament.setText(dogBreed.temperament);
-         }
-     });
+    private void observeInformation() {
+        detailViewModel.dogBreedValue.observe(this, dogBreed -> {
+            if (dogBreed != null && dogBreed instanceof DogBreed) {
+                ImageUtils.loadImage(breed_image, dogBreed.imageURL, ImageUtils.getProgressDrawable(breed_image.getContext()));
+                details.setText(dogBreed.dogBreed);
+                purpose.setText(dogBreed.breedGroup);
+                lifespan.setText(dogBreed.lifeSpan);
+                temperament.setText(dogBreed.temperament);
+            }
+        });
     }
 
 /*

@@ -17,4 +17,6 @@ List<Long> insertAll(DogBreed... dogBreed);
 @Query("DELETE FROM DogBreed")
     void deleteAllDogs();
 
+@Query("SELECT * FROM DogBreed where DogBreed.uui = :dogUuid")
+    DogBreed getDogBreedInfo(int dogUuid);
 }
