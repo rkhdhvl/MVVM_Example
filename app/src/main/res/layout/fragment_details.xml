@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetailsFragment">
+
+    <ImageView
+        android:id="@+id/breed_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:contentDescription="@string/dog_breed_image"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:layout_below="@id/breed_image"
+        android:id="@+id/dog_breed_details"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/Title"
+        android:text="@string/dog_breed_name" />
+
+    <TextView
+        android:layout_below="@id/dog_breed_details"
+        android:id="@+id/purpose"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/text_normal"
+        android:text="@string/dog_purpose"/>
+
+    <TextView
+        android:layout_below="@id/purpose"
+        android:id="@+id/temperament"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/text_normal"
+        android:text="@string/dog_temperament"/>
+
+    <TextView
+        android:layout_below="@id/temperament"
+        android:id="@+id/dog_lifespan"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/text_normal"
+        android:text="@string/dog_lifespan"/>
+
+
+</RelativeLayout>
