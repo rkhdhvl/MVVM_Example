@@ -5,13 +5,17 @@
         <variable
             name="dogInfo"
             type="com.example.mvvm_java.model.DogBreed" />
+        <variable
+            name="palette"
+            type="com.example.mvvm_java.model.BgPalette" />
     </data>
 
 <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DetailsFragment">
+    tools:context=".view.DetailsFragment"
+    android:background="@{palette.color}">
 
     <ImageView
         android:id="@+id/breed_image"

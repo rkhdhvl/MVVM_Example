@@ -1,5 +1,7 @@
 package com.example.mvvm_java.view;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.palette.graphics.Palette;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.mvvm_java.R;
 import com.example.mvvm_java.databinding.FragmentDetailsBinding;
+import com.example.mvvm_java.model.BgPalette;
 import com.example.mvvm_java.model.DogBreed;
 import com.example.mvvm_java.util.ImageUtils;
 import com.example.mvvm_java.viewmodel.DetailViewModel;
@@ -67,6 +74,10 @@ public class DetailsFragment extends Fragment {
         detailViewModel.dogBreedValue.observe(this, dogBreed -> {
             if (dogBreed != null && dogBreed instanceof DogBreed) {
                 binding.setDogInfo(dogBreed);
+                if(dogBreed.imageURL!=null)
+                {
+                    setUpBackgroundColor(dogBreed.imageURL);
+                }
 
                 // example of accessing the layout element after using databinding
               //  binding.purpose.setText("Some value");
@@ -80,6 +91,29 @@ public class DetailsFragment extends Fragment {
                 temperament.setText(dogBreed.temperament);*/
             }
         });
+    }
+
+    private void setUpBackgroundColor(String url)
+    {
+         Glide.with(this)
+                 .asBitmap()
+                 .load(url)
+                 .into(new CustomTarget<Bitmap>() {
+                     @Override
+                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                         Palette.from(resource)
+                                 .generate(palette -> {
+                                     int intColor = palette.getLightMutedSwatch().getRgb();
+                                     BgPalette bgPalette = new BgPalette(intColor);
+                                     binding.setPalette(bgPalette);
+                                 });
+                     }
+
+                     @Override
+                     public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                     }
+                 });
     }
 
 /*
