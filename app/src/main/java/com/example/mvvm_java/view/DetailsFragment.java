@@ -58,6 +58,11 @@ public class DetailsFragment extends Fragment {
         observeInformation();
     }
 
+
+    /*
+    * An example code for demonstrating Android Jetpack masterclasses in Java*/
+
+
     private void observeInformation() {
         detailViewModel.dogBreedValue.observe(this, dogBreed -> {
             if (dogBreed != null && dogBreed instanceof DogBreed) {
