@@ -3,6 +3,7 @@ package com.example.mvvm_java.util;
 import android.content.Context;
 import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,12 @@ public class ImageUtils {
         circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();
         return  circularProgressDrawable;
+    }
+
+    @BindingAdapter("android:imageUrl")
+    public static void loadImage(ImageView imageView, String url)
+    {
+        loadImage(imageView,url,getProgressDrawable(imageView.getContext()));
     }
 
 }
