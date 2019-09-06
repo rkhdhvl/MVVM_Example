@@ -13,6 +13,7 @@ import com.example.mvvm_java.model.ApiService;
 import com.example.mvvm_java.model.AppDatabase;
 import com.example.mvvm_java.model.DatabaseDao;
 import com.example.mvvm_java.model.DogBreed;
+import com.example.mvvm_java.util.NotificationsHelper;
 import com.example.mvvm_java.util.SharedPrefHelper;
 
 import java.util.ArrayList;
@@ -61,6 +62,23 @@ public class ListViewModel extends AndroidViewModel {
         fetchFromRemote();
     }
 
+    private void checkCacheDuration()
+    {
+        String cachePreference = prefHelper.getCacheDuration();
+        if(!cachePreference.equals(""))
+        {
+            try
+            {
+               int cachePreferenceInt = Integer.parseInt(cachePreference);
+               refreshTime = cachePreferenceInt * 1000 *1000 * 1000L;
+            }
+            catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void fetchFromRemote()
     {
         loading.setValue(true);
@@ -74,6 +92,7 @@ public class ListViewModel extends AndroidViewModel {
                          insertIntoDatabaseTask.execute(dogBreeds);
                          prefHelper.saveUpdateTime(System.nanoTime());
                          Toast.makeText(getApplication(),"Values inserted",Toast.LENGTH_LONG).show();
+                         NotificationsHelper.getInstance(getApplication()).createNotifications();
                      }
 
                      @Override
