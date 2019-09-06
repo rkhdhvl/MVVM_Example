@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,6 +39,7 @@ public class DetailsFragment extends Fragment {
     DetailViewModel detailViewModel;
     int dogUuid;
     private FragmentDetailsBinding binding;
+    private Boolean sendSmsStarted = false;
 
     public DetailsFragment() {
     }
@@ -45,6 +49,7 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentDetailsBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_details,container,false);
+        setHasOptionsMenu(true);
         this.binding = binding;
         return binding.getRoot();
         /*View view = inflater.inflate(R.layout.fragment_details, container, false);
@@ -116,6 +121,8 @@ public class DetailsFragment extends Fragment {
                  });
     }
 
+
+
 /*
     void goToListFragment()
     {
@@ -124,5 +131,34 @@ public class DetailsFragment extends Fragment {
     }
 */
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.details_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_share:
+                break;
+
+            case R.id.action_send_sms:
+                if(!sendSmsStarted)
+                {
+                    sendSmsStarted = true;
+                    ((MainActivity)getActivity()).checkSmsPermission();
+                }
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onPermissionResult(Boolean permissionGranted)
+    {
+
+    }
 
 }

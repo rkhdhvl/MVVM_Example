@@ -34,4 +34,9 @@ public class SharedPrefHelper {
         return sharedPreferences.getLong(PREF_TIME,0);
     }
 
+    public String getCacheDuration()
+    {
+        return sharedPreferences.getString("actionSettings","");
+    }
+
 }
